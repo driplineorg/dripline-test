@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+    # a rabbit broker
+    rabbit_broker:
+        image: rabbitmq:3-management
+        ports:
+          - "127.0.0.1:8888:15672"
+        ports:
+          - "15672:15672"
+          - "5672:5672"
+
+    simple_service:
+        depends_on: 
+          - rabbit_broker
+        image: driplineorg/dripline-cpp:master
+        volumes:
+          - ./authentication.json:/root/authentication.json
+          - ./simple_service_config.yaml:/root/simple_service_config.yaml
+        command: ["simple_service", "-c", "/root/simple_service_config.yaml"]
+        restart: on-failure
+        

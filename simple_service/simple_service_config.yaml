@@ -1,0 +1,4 @@
+amqp:
+    auth-file: /root/authentication.json
+    broker: rabbit_broker
+  

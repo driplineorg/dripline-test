@@ -1,0 +1,7 @@
+{
+    "amqp": {
+        "broker": "rabbit_broker",
+        "username": "guest",
+        "password": "guest"
+    }
+}
