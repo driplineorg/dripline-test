@@ -17,6 +17,17 @@ services:
         volumes:
           - ./authentication.json:/root/authentication.json
           - ./simple_service_config.yaml:/root/simple_service_config.yaml
+          - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
         command: ["simple_service", "-c", "/root/simple_service_config.yaml"]
+        restart: on-failure
+        
+    pinger:
+        depends_on:
+          - simple_service
+        image: driplineorg/dripline-cpp:master
+        volumes:
+          - ./authentication.json:/root/authentication.json
+          - ./simple_service_config.yaml:/root/simple_service_config.yaml
+        command: ["dl_agent", "-c", "/root/simple_service_config.yaml", "simple", "ping", "cmd"]
         restart: on-failure
         
